@@ -2,8 +2,8 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import Suhealth from '../../assets/Suhealth.webp';
 import Sueducation from '../../assets/Sueducation.webp';
-import Suskill from '../../assets/Suskill.jpg';
-import Suenvironment from '../../assets/Suenvironment.jpg';
+import Suskill from '../../assets/Suskill.webp';
+import Suenvironment from '../../assets/Suenvironment.webp';
 
 const programs = [
   {
@@ -12,7 +12,7 @@ const programs = [
     subtitle: 'Healthcare for All',
     description: 'Providing accessible healthcare, medical camps, and essential health awareness to underserved communities.',
     image: Suhealth,
-    link: '/sehat',
+    link: '/what-we-do#sehat',
     color: 'from-blue-500 to-cyan-400'
   },
   {
@@ -21,7 +21,7 @@ const programs = [
     subtitle: 'Lighting up Minds',
     description: 'Empowering children through quality education, learning resources, and better school infrastructure.',
     image: Sueducation,
-    link: '/ujjawal',
+    link: '/what-we-do#ujjawal',
     color: 'from-pink-400 to-rose-500'
   },
   {
@@ -30,7 +30,7 @@ const programs = [
     subtitle: 'Skill Development',
     description: 'Creating livelihood opportunities by imparting crucial skills and vocational training to the youth.',
     image: Suskill,
-    link: '/sambhavana',
+    link: '/what-we-do#sambhavana',
     color: 'from-purple-500 to-fuchsia-500'
   },
   {
@@ -39,7 +39,7 @@ const programs = [
     subtitle: 'Sustainable Environment',
     description: 'Promoting environmental conservation, tree plantation, and sustainable living practices.',
     image: Suenvironment,
-    link: '/unnati',
+    link: '/what-we-do#unnati',
     color: 'from-green-500 to-emerald-400'
   }
 ];

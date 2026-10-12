@@ -14,7 +14,7 @@ const Hero = () => {
       {/* Hero Banner Image Layer (Very Light Visibility) */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-5 mix-blend-screen"
-        style={{ backgroundImage: "url('/hero-banner.png')" }}
+        style={{ backgroundImage: "url('/hero-banner.webp')" }}
       ></div>
 
       {/* Abstract Glow Orbs */}

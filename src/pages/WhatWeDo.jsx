@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
 import { Link, useLocation } from "react-router-dom";
-import suSehat from "../assets/suSehat.jpg";
-import suUjjwal from "../assets/suUjjwal.jpg";
+import suSehat from "../assets/suSehat.webp";
+import suUjjwal from "../assets/suUjjwal.webp";
 import suSambhavna from "../assets/suSambhavna.webp";
-import suUnnati from "../assets/suUnnati.jpg";
-import suVision2 from "../assets/suVision2.jpg";
+import suUnnati from "../assets/suUnnati.webp";
+import suVision2 from "../assets/suVision2.webp";
 
 function WhatWeDo() {
   const { hash } = useLocation();
@@ -216,7 +216,7 @@ function WhatWeDo() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="bg-foundation-primary rounded-[3rem] relative overflow-hidden py-20 px-8 lg:px-16 shadow-2xl">
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.05] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url('/hero-banner.png')" }}></div>
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.05] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url('/hero-banner.webp')" }}></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-foundation-secondary/20 rounded-full blur-3xl pointer-events-none transform translate-x-1/2 -translate-y-1/2"></div>
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">

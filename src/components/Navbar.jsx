@@ -16,7 +16,7 @@ function Navbar() {
       <div className="logo">
 
         <Link to="/" onClick={scrollToTop}>
-          <img src="/logo.png" alt="Sharda Welfare" />
+          <img src="/logo.webp" alt="Sharda Welfare" />
         </Link>
 
       </div>

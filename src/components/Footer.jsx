@@ -10,7 +10,7 @@ const Footer = () => {
           {/* Brand Column */}
           <div className="flex flex-col items-start">
             <Link to="/" className="mb-6 bg-white p-2 rounded-xl inline-block">
-              <img src="/logo.png" alt="Sharda Welfare Foundation" className="h-12 w-auto object-contain" />
+              <img src="/logo.webp" alt="Sharda Welfare Foundation" className="h-12 w-auto object-contain" />
             </Link>
             <p className="text-slate-400 text-sm leading-relaxed mb-8 pr-4">
               Building a healthier and brighter tomorrow by extending healthcare awareness and essential support to communities who need it most.
@@ -45,11 +45,11 @@ const Footer = () => {
           <div>
             <h4 className="text-white font-bold text-lg mb-6">Our Programs</h4>
             <ul className="space-y-4 text-sm font-medium">
-              <li><Link to="/sehat" className="text-slate-400 hover:text-foundation-secondary transition-colors">Healthcare — SEHAT</Link></li>
-              <li><Link to="/ujjawal" className="text-slate-400 hover:text-foundation-secondary transition-colors">Education — UJJAWAL</Link></li>
-              <li><Link to="/sambhavana" className="text-slate-400 hover:text-foundation-secondary transition-colors">Skill Development — SAMBHAVANA</Link></li>
-              <li><Link to="/unnati" className="text-slate-400 hover:text-foundation-secondary transition-colors">Environment — UNNATI</Link></li>
-              <li><Link to="/mega-school-health-drive" className="text-slate-400 hover:text-foundation-secondary transition-colors">Mega School Health Drive</Link></li>
+              <li><Link to="/what-we-do#sehat" className="text-slate-400 hover:text-foundation-secondary transition-colors">Healthcare — SEHAT</Link></li>
+              <li><Link to="/what-we-do#ujjawal" className="text-slate-400 hover:text-foundation-secondary transition-colors">Education — UJJAWAL</Link></li>
+              <li><Link to="/what-we-do#sambhavana" className="text-slate-400 hover:text-foundation-secondary transition-colors">Skill Development — SAMBHAVANA</Link></li>
+              <li><Link to="/what-we-do#unnati" className="text-slate-400 hover:text-foundation-secondary transition-colors">Environment — UNNATI</Link></li>
+              <li><Link to="/latest-updates" className="text-slate-400 hover:text-foundation-secondary transition-colors">Latest Updates</Link></li>
             </ul>
           </div>
 

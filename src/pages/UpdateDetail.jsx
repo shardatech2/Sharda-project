@@ -1,6 +1,7 @@
 import React from "react";
 import { useLocation, Link, Navigate } from "react-router-dom";
 import { updatesData } from "../data/updatesData";
+import SEO from "../components/SEO";
 
 function UpdateDetail() {
   const location = useLocation();
@@ -13,6 +14,17 @@ function UpdateDetail() {
 
   return (
     <div className="w-full bg-white flex flex-col min-h-screen">
+      <SEO
+        title={update.title}
+        description={update.shortDesc}
+        ogImage={update.image}
+        ogType="article"
+        breadcrumb={[
+          { label: "Home", link: "/" },
+          { label: "Latest Updates", link: "/latest-updates" },
+          { label: update.title }
+        ]}
+      />
 
       {/* =========================
           INTRO SECTION
@@ -72,7 +84,7 @@ function UpdateDetail() {
       <section className="py-20 bg-slate-50">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="bg-foundation-primary rounded-[3rem] relative overflow-hidden py-20 px-8 lg:px-16 shadow-2xl">
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.05] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url('/hero-banner.png')" }}></div>
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.05] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url('/hero-banner.webp')" }}></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-foundation-secondary/20 rounded-full blur-3xl pointer-events-none transform translate-x-1/2 -translate-y-1/2"></div>
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">

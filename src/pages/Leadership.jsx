@@ -5,7 +5,7 @@ const leaders = [
     id: 1,
     name: "Shri. Pradeep Kumar Gupta",
     designation: "Chairman, Sharda Corporation, Chancellor Sharda University",
-    image: "/p.k.gupta.png", 
+    image: "/p.k.gupta.webp", 
     shortBio: "A visionary leader who has revolutionized educational paradigms across India.",
     fullBio: [
       "Mr. Pradeep Kumar Gupta stands as a visionary leader who has revolutionized educational paradigms across India. Beginning with engineering campuses in 1996 at Agra & Mathura, Mr. P. K. Gupta established Sharda University in 2009 as India's first truly global university, welcoming students from 95+ countries.",
@@ -16,7 +16,7 @@ const leaders = [
     id: 2,
     name: "Shri. Yatendra Kumar Gupta",
     designation: "Vice Chairman, Sharda Corporation, Pro Chancellor Sharda University",
-    image: "/y.k.gupta.jpeg", 
+    image: "/y.k.gupta.webp", 
     shortBio: "A renowned educationalist, social leader and visionary industrialist.",
     fullBio: [
       "Mr. Yatendra Kumar Gupta is a renowned educationalist, social leader and a visionary industrialist who has traversed a tough road to the position he holds in the corporate world today.",
@@ -29,7 +29,7 @@ const leaders = [
     id: 3,
     name: "Shri. Prashant Gupta",
     designation: "CEO- Sharda Corporation, President Sharda University Uzbekistan",
-    image: "/prashant.jpeg", 
+    image: "/prashant.webp", 
     shortBio: "Bringing over 14 years of leadership experience across education, healthcare & IT sectors.",
     fullBio: [
       "Mr. Prashant Gupta serves as Chief Executive Officer of Sharda Corporation, bringing over 14 years of leadership experience across education, healthcare, IT sectors & export. As Founder & CEO of Sharda Tech, Sharda World School, Sharda University Uzbekistan and WireOut Technologies, he demonstrates exceptional entrepreneurial acumen. He is also an angel investor in start-up's.",

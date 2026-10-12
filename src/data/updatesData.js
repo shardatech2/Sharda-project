@@ -1,19 +1,19 @@
-import suMegahealth2 from "../assets/suMegahealth2.jpg";
-import suSuhanasafar2 from "../assets/suSuhanasafar2.jpg";
-import suMegahealth from "../assets/suMegahealth.jpg";
-import suCommunityhealthcamp2 from "../assets/suCommunityhealthcamp2.jpg";
-import suCommunityhealthcamp3 from "../assets/suCommunityhealthcamp3.jpg";
-import suCommunityhealthcamp from "../assets/suCommunityhealthcamp.jpg";
-import suhealthcamp from "../assets/suhealthcamp.jpg";
-import sufoodhealth from "../assets/sufoodhealth.jpg";
-import suenvironment from "../assets/Suenvironment.jpg";
+import suMegahealth2 from "../assets/suMegahealth2.webp";
+import suSuhanasafar2 from "../assets/suSuhanasafar2.webp";
+import suMegahealth from "../assets/suMegahealth.webp";
+import suCommunityhealthcamp2 from "../assets/suCommunityhealthcamp2.webp";
+import suCommunityhealthcamp3 from "../assets/suCommunityhealthcamp3.webp";
+import suCommunityhealthcamp from "../assets/suCommunityhealthcamp.webp";
+import suhealthcamp from "../assets/suhealthcamp.webp";
+import sufoodhealth from "../assets/sufoodhealth.webp";
+import suenvironment from "../assets/Suenvironment.webp";
 
 export const updatesData = [
   {
     id: "2nd-mega-camp-chuharpur-khadar",
     title: "2nd Mega Camp held at Government School Chuharpur Khadar",
     shortDesc: "In our 2nd Mega Camp held at Government School Chuharpur Khadar, Greater Noida, we had the pleasure of engaging with 85 children.",
-    image: "/latest-updates/story1.jpg",
+    image: "/latest-updates/story1.webp",
     content: [
       "In our 2nd Mega Camp held at Government School Chuharpur Khadar, Greater Noida, we had the pleasure of engaging with 85 children. Each child received attentive screenings conducted by specialized medical professionals, including Pediatricians, Ophthalmologists, and Dentists.",
       "The comprehensive health check encompassed thorough examinations, ensuring no aspect of their well-being was overlooked. This encompassed meticulous checks of their overall health, with particular attention given to dental and eye examinations. By focusing on these crucial areas, our aim was to guarantee comprehensive care for every child's health and ensure they receive the necessary support and attention to thrive."

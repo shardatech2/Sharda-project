@@ -16,7 +16,7 @@ function OurRole() {
             <div className="relative order-2 lg:order-1">
               <div className="absolute inset-0 bg-gradient-to-tr from-foundation-secondary/20 to-transparent rounded-[2rem] transform -translate-x-4 translate-y-4 -z-10"></div>
               <img
-                src="/role1.png"
+                src="/role1.webp"
                 alt="Sharda Welfare community welfare initiative"
                 className="w-full h-auto rounded-[2rem] shadow-2xl object-cover"
               />
@@ -131,7 +131,7 @@ function OurRole() {
             <div className="relative order-1 lg:order-2">
               <div className="absolute inset-0 bg-gradient-to-tr from-foundation-primary/20 to-transparent rounded-[2rem] transform translate-x-4 translate-y-4 -z-10"></div>
               <img
-                src="/role2.png"
+                src="/role2.webp"
                 alt="Working with communities"
                 className="w-full h-auto rounded-[2rem] shadow-2xl object-cover"
               />
@@ -147,7 +147,7 @@ function OurRole() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-6 lg:px-8">
           <div className="bg-foundation-primary rounded-[3rem] relative overflow-hidden py-20 px-8 lg:px-16 shadow-2xl">
-            <div className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.05] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url('/hero-banner.png')" }}></div>
+            <div className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.05] mix-blend-screen pointer-events-none" style={{ backgroundImage: "url('/hero-banner.webp')" }}></div>
             <div className="absolute top-0 right-0 w-96 h-96 bg-foundation-secondary/20 rounded-full blur-3xl pointer-events-none transform translate-x-1/2 -translate-y-1/2"></div>
             
             <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-10">

@@ -34,7 +34,7 @@ const AboutPreview = () => {
           <div className="order-1 lg:order-2 relative">
             <div className="absolute inset-0 bg-gradient-to-tr from-foundation-secondary/20 to-transparent rounded-[2rem] transform translate-x-4 translate-y-4 -z-10"></div>
             <img 
-              src="/home-about.png" 
+              src="/home-about.webp" 
               alt="Community health camp with smiling volunteers" 
               className="w-full h-auto rounded-[2rem] shadow-2xl object-cover aspect-[4/3]"
             />

@@ -8,7 +8,7 @@ const PageHeader = ({ title, breadcrumb }) => {
       {/* Background overlay texture */}
       <div 
         className="absolute inset-0 w-full h-full bg-cover bg-center bg-no-repeat opacity-[0.03] mix-blend-screen pointer-events-none"
-        style={{ backgroundImage: "url('/hero-banner.png')" }}
+        style={{ backgroundImage: "url('/hero-banner.webp')" }}
       ></div>
 
       <div className="relative z-10 text-center px-6 max-w-4xl mx-auto flex flex-col items-center">
