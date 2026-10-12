@@ -233,7 +233,7 @@ const Contact = () => {
               className="w-full h-full border-0"
               allowFullScreen=""
               loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
+              referrerPolicy="strict-origin-when-cross-origin"
             ></iframe>
           </div>
 

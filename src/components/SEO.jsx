@@ -95,7 +95,8 @@ const SEO = ({
         }))
       };
 
-      breadcrumbScript.textContent = JSON.stringify(breadcrumbData);
+      // Prevent script tag breakout vulnerabilities
+      breadcrumbScript.textContent = JSON.stringify(breadcrumbData).replace(/<\/script/gi, '<\\/script');
     } else if (breadcrumbScript) {
       breadcrumbScript.remove();
     }

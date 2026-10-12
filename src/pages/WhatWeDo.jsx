@@ -11,10 +11,12 @@ function WhatWeDo() {
 
   useEffect(() => {
     if (hash) {
+      const cleanId = hash.replace(/[^a-zA-Z0-9_-]/g, '');
+      if (!cleanId) return;
+
       // Small timeout to ensure DOM is ready
       setTimeout(() => {
-        const id = hash.replace('#', '');
-        const element = document.getElementById(id);
+        const element = document.getElementById(cleanId);
         if (element) {
           element.scrollIntoView({ behavior: "smooth" });
         }

@@ -6,9 +6,11 @@ const ScrollToTop = () => {
 
   useEffect(() => {
     if (hash) {
-      const id = hash.replace('#', '');
+      const cleanId = hash.replace(/[^a-zA-Z0-9_-]/g, '');
+      if (!cleanId) return;
+
       const scrollToElement = () => {
-        const element = document.getElementById(id);
+        const element = document.getElementById(cleanId);
         if (element) {
           element.scrollIntoView({ behavior: 'smooth' });
         }
