@@ -55,18 +55,14 @@
 }
 
 
-/* ------------------------------
-   Navbar
--------------------------------- */
-
 /* ==============================
-   Navbar
+   NAVBAR — BASE
 ============================== */
 
 .navbar {
   width: 100%;
-  height: 78px;
-  padding: 0 6%;
+  height: 74px;
+  padding: 0 5%;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -76,108 +72,397 @@
 
   position: sticky;
   top: 0;
-  z-index: 1000;
+  z-index: 1100;
 
-  box-shadow: 0 3px 15px rgba(0, 0, 0, 0.06);
+  transition: box-shadow 0.3s ease;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.05);
 }
 
+.navbar-scrolled {
+  box-shadow: 0 4px 20px rgba(23, 36, 66, 0.12);
+}
 
-/* Logo */
+/* ─── Logo ─────────────────── */
 
 .logo {
   display: flex;
   align-items: center;
   height: 100%;
+  flex-shrink: 0;
 }
 
 .logo img {
-  height: 60px; /* Provides 9px top and bottom padding within 78px navbar */
+  height: 56px;
   width: auto;
   object-fit: contain;
+  display: block;
 }
 
-.logo p {
-  margin: 0;
-  font-size: 11px;
-  color: #64748b;
-}
-
-
-/* Navigation Links */
+/* ─── Desktop nav links ──────── */
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 32px;
+  gap: 28px;
 }
 
 .nav-links a {
   position: relative;
-
   color: #263238;
   text-decoration: none;
-
   font-size: 15px;
   font-weight: 500;
-
-  padding: 8px 0;
-
-  transition: color 0.3s ease;
+  padding: 6px 0;
+  transition: color 0.25s ease;
+  white-space: nowrap;
 }
-
-
-/* Hover underline */
 
 .nav-links a::after {
   content: "";
-
   position: absolute;
   left: 0;
-  bottom: 0;
-
+  bottom: -2px;
   width: 0;
   height: 2px;
-
-  background: #172442;
-
+  background: #008c95;
+  border-radius: 2px;
   transition: width 0.3s ease;
 }
 
-.nav-links a:hover {
-  color: #172442;
+.nav-links a:hover,
+.nav-links a.nav-active {
+  color: #008c95;
 }
 
-.nav-links a:hover::after {
+.nav-links a:hover::after,
+.nav-links a.nav-active::after {
   width: 100%;
 }
 
-
-/* Donate Button */
+/* ─── Donate Button ──────────── */
 
 .donate-btn {
   border: none;
-
   background: #0d8b8b;
   color: #ffffff;
-
-  padding: 13px 24px;
-
+  padding: 11px 22px;
   border-radius: 25px;
-
   font-size: 14px;
   font-weight: 700;
-
   cursor: pointer;
-
   transition: all 0.3s ease;
+  white-space: nowrap;
 }
 
 .donate-btn:hover {
   background: #087474;
-
   transform: translateY(-2px);
-
   box-shadow: 0 7px 18px rgba(13, 139, 139, 0.25);
+}
+
+/* ─── Hamburger Button ─────────── */
+
+.hamburger {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 5px;
+  width: 42px;
+  height: 42px;
+  background: none;
+  border: 1.5px solid #e5e7eb;
+  border-radius: 8px;
+  cursor: pointer;
+  padding: 8px;
+  flex-shrink: 0;
+  transition: background 0.2s ease, border-color 0.2s ease;
+  z-index: 1200;
+}
+
+.hamburger:hover {
+  background: #f0f4f8;
+  border-color: #c8d3df;
+}
+
+.hamburger-line {
+  display: block;
+  width: 20px;
+  height: 2px;
+  background: #172442;
+  border-radius: 2px;
+  transition: transform 0.3s ease, opacity 0.3s ease, width 0.3s ease;
+  transform-origin: center;
+}
+
+/* Animated X when open */
+.hamburger-open .hamburger-line:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.hamburger-open .hamburger-line:nth-child(2) {
+  opacity: 0;
+  width: 0;
+}
+.hamburger-open .hamburger-line:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ─── Mobile overlay ────────── */
+
+.mobile-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  background: rgba(10, 20, 40, 0.45);
+  z-index: 1099;
+  backdrop-filter: blur(3px);
+  animation: fadeOverlay 0.25s ease;
+}
+
+@keyframes fadeOverlay {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+/* ─── Mobile Drawer ─────────── */
+
+.mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: min(320px, 88vw);
+  height: 100dvh;
+  background: #ffffff;
+  z-index: 1200;
+  flex-direction: column;
+  transform: translateX(100%);
+  transition: transform 0.32s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: -8px 0 40px rgba(23, 36, 66, 0.18);
+  overflow-y: auto;
+  overscroll-behavior: contain;
+}
+
+.mobile-drawer-open {
+  transform: translateX(0);
+}
+
+.mobile-drawer-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 20px;
+  border-bottom: 1px solid #f0f3f8;
+  flex-shrink: 0;
+}
+
+.mobile-drawer-logo {
+  height: 48px;
+  width: auto;
+  object-fit: contain;
+}
+
+.mobile-drawer-close {
+  background: #f5f7fa;
+  border: none;
+  border-radius: 8px;
+  width: 38px;
+  height: 38px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  color: #172442;
+  transition: background 0.2s ease;
+}
+
+.mobile-drawer-close:hover {
+  background: #e8edf5;
+}
+
+/* Mobile nav links */
+
+.mobile-nav {
+  display: flex;
+  flex-direction: column;
+  padding: 12px 0;
+  flex: 1;
+}
+
+.mobile-nav-link {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px 22px;
+  color: #172442;
+  text-decoration: none;
+  font-size: 15px;
+  font-weight: 600;
+  border-bottom: 1px solid #f5f7fa;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-nav-link:hover {
+  background: #f8fafc;
+  color: #008c95;
+}
+
+.mobile-nav-link.mobile-nav-active {
+  color: #008c95;
+  background: #f0fafb;
+}
+
+.mobile-nav-link svg {
+  color: #c8d3df;
+  flex-shrink: 0;
+}
+
+/* Mobile accordion (About Us) */
+
+.mobile-accordion {
+  border-bottom: 1px solid #f5f7fa;
+}
+
+.mobile-accordion-btn {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  padding: 15px 22px;
+  background: none;
+  border: none;
+  color: #172442;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  text-align: left;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-accordion-btn:hover,
+.mobile-accordion-open {
+  background: #f8fafc;
+  color: #008c95;
+}
+
+.mobile-accordion-btn.mobile-nav-active {
+  color: #008c95;
+}
+
+.accordion-chevron {
+  transition: transform 0.3s ease;
+  color: #c8d3df;
+  flex-shrink: 0;
+}
+
+.accordion-chevron-open {
+  transform: rotate(180deg);
+  color: #008c95;
+}
+
+.mobile-accordion-panel {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.35s ease;
+  background: #f8fafc;
+}
+
+.mobile-accordion-panel-open {
+  max-height: 400px;
+}
+
+.mobile-sub-link {
+  display: block;
+  padding: 12px 22px 12px 34px;
+  color: #4a5568;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-bottom: 1px solid #eff2f7;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-sub-link:hover {
+  color: #008c95;
+  background: #edf9fa;
+}
+
+.mobile-sub-link.mobile-nav-active {
+  color: #008c95;
+  font-weight: 600;
+}
+
+/* Mobile Drawer Footer */
+
+.mobile-drawer-footer {
+  padding: 20px 22px 28px;
+  border-top: 1px solid #f0f3f8;
+  flex-shrink: 0;
+}
+
+.mobile-drawer-tagline {
+  font-size: 12px;
+  color: #7a8fa6;
+  font-weight: 500;
+  margin-bottom: 14px;
+  line-height: 1.5;
+}
+
+.mobile-drawer-social {
+  display: flex;
+  gap: 12px;
+}
+
+.mobile-social-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
+  background: #f0f4f8;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #172442;
+  text-decoration: none;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mobile-social-icon:hover {
+  background: #008c95;
+  color: #ffffff;
+}
+
+/* ─── Responsive breakpoint ─── */
+
+@media (max-width: 900px) {
+  .hamburger {
+    display: flex;
+  }
+  .nav-links {
+    display: none;
+  }
+  .mobile-overlay {
+    display: block;
+  }
+  .mobile-drawer {
+    display: flex;
+  }
+  .navbar {
+    padding: 0 4%;
+    height: 68px;
+  }
+  .logo img {
+    height: 50px;
+  }
+}
+
+@media (max-width: 480px) {
+  .navbar {
+    padding: 0 5%;
+    height: 64px;
+  }
+  .logo img {
+    height: 46px;
+  }
 }
 
 /* ------------------------------
@@ -1719,37 +2004,6 @@
 
 
 /* ==============================
-   NAVBAR
-============================== */
-
-.navbar {
-  background: #ffffff;
-  border-bottom: 1px solid #dce5e8;
-  box-shadow: 0 4px 18px rgba(18, 48, 74, 0.08);
-}
-
-.nav-links a {
-  color: #17324d;
-}
-
-.nav-links a:hover {
-  color: #008c95;
-}
-
-.nav-links a::after {
-  background: #008c95;
-}
-
-.donate-btn {
-  background: #008c95;
-}
-
-.donate-btn:hover {
-  background: #006d73;
-}
-
-
-/* ==============================
    HERO BUTTON
 ============================== */
 
@@ -1842,73 +2096,76 @@
   font-family: inherit;
   font-size: 15px;
   font-weight: 500;
-  color: #172442;
+  color: #263238;
   cursor: pointer;
-  padding: 8px 0;
+  padding: 6px 0;
   display: flex;
   align-items: center;
-  gap: 5px;
+  gap: 4px;
+  transition: color 0.25s ease;
+  white-space: nowrap;
 }
 
-.nav-dropdown-btn span {
-  font-size: 12px;
+.nav-dropdown-btn:hover,
+.nav-dropdown-btn.nav-active {
+  color: #008c95;
+}
+
+.dropdown-arrow {
+  display: flex;
+  align-items: center;
   transition: transform 0.3s ease;
+  color: #94a3b8;
+}
+
+.nav-dropdown:hover .dropdown-arrow {
+  transform: rotate(180deg);
+  color: #008c95;
 }
 
 .dropdown-menu {
   position: absolute;
-  top: 100%;
+  top: calc(100% + 12px);
   left: 50%;
-  transform: translateX(-50%) translateY(8px);
+  transform: translateX(-50%);
 
-  min-width: 230px;
+  min-width: 240px;
   background: #ffffff;
 
-  border-radius: 10px;
+  border-radius: 14px;
   padding: 8px 0;
 
-  box-shadow: 0 10px 30px rgba(23, 36, 66, 0.15);
-
+  box-shadow: 0 12px 40px rgba(23, 36, 66, 0.14);
   border: 1px solid #f1f5f9;
 
   opacity: 0;
   visibility: hidden;
   pointer-events: none;
 
-  transition: all 0.25s ease;
-
-  z-index: 1000;
+  transition: all 0.22s ease;
+  z-index: 1100;
 }
 
 .dropdown-menu a {
   display: block;
-  padding: 11px 18px;
-
+  padding: 11px 20px;
   color: #172442;
   text-decoration: none;
-
   font-size: 14px;
   font-weight: 500;
-
   transition: all 0.2s ease;
 }
 
 .dropdown-menu a:hover {
-  background: rgba(23, 36, 66, 0.08);
-  color: #172442;
-  padding-left: 22px;
+  background: #f0fafb;
+  color: #008c95;
+  padding-left: 26px;
 }
 
 .nav-dropdown:hover .dropdown-menu {
   opacity: 1;
   visibility: visible;
   pointer-events: auto;
-
-  transform: translateX(-50%) translateY(0);
-}
-
-.nav-dropdown:hover .nav-dropdown-btn span {
-  transform: rotate(180deg);
 }
 
 /* ========================================
