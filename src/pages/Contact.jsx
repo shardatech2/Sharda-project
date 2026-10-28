@@ -1,12 +1,42 @@
 import React from 'react';
+import { useContactSettings } from '../hooks/useContactSettings';
+import { initialContactData, socialPlatformIcons, isValidUrl, getSafeUrl, cleanTel } from '../data/contactData';
 
 const Contact = () => {
-  const emailAddress = "info@shardawelfare.org";
-  const phoneNumber = "+91 88009 98844";
-  const phoneTel = "+918800998844";
-  const address = "Plot No. 32, 34, Knowledge Park III, Greater Noida, Uttar Pradesh 201310";
-  const mapEmbedUrl = "https://maps.google.com/maps?q=Sharda%20University,%20Plot%20no%2032,%2034,%20Knowledge%20Park%20III,%20Greater%20Noida,%20Uttar%20Pradesh%20201310&t=&z=15&ie=UTF8&iwloc=&output=embed";
-  const mapDirectionsUrl = "https://www.google.com/maps/dir/?api=1&destination=Sharda+University+Knowledge+Park+III+Greater+Noida";
+  const { contact } = useContactSettings();
+  const data = contact || initialContactData;
+
+  const emailAddress = data.official_email || initialContactData.official_email;
+  const phoneNumber = data.helpline_number || initialContactData.helpline_number;
+  const phoneTel = cleanTel(data.helpline_tel, phoneNumber) || initialContactData.helpline_tel;
+  const officeHours = data.office_hours || initialContactData.office_hours;
+  const emailResponseTime = data.email_response_time || initialContactData.email_response_time;
+
+  const whatsappNumber = data.whatsapp_number || initialContactData.whatsapp_number;
+  const rawWhatsappUrl = data.whatsapp_url || initialContactData.whatsapp_url;
+  const whatsappUrl = getSafeUrl(
+    rawWhatsappUrl,
+    whatsappNumber ? `https://wa.me/${whatsappNumber.replace(/[^\d]/g, '')}?text=${encodeURIComponent('Hello Sharda Welfare Foundation, I would like to connect.')}` : initialContactData.whatsapp_url
+  );
+
+  const rawMapEmbedUrl = data.map_embed_url || initialContactData.map_embed_url;
+  const mapEmbedUrl = getSafeUrl(rawMapEmbedUrl, initialContactData.map_embed_url);
+
+  const rawMapDirectionsUrl = data.map_directions_url || initialContactData.map_directions_url;
+  const mapDirectionsUrl = getSafeUrl(rawMapDirectionsUrl, initialContactData.map_directions_url);
+
+  const addressLines = (data.campus_address_multiline || initialContactData.campus_address_multiline)
+    .split(/\r?\n/)
+    .map((l) => l.trim())
+    .filter(Boolean);
+
+  const additionalPhones = Array.isArray(data.additional_phones) ? data.additional_phones : [];
+  const additionalEmails = Array.isArray(data.additional_emails) ? data.additional_emails : [];
+  const additionalAddresses = Array.isArray(data.additional_addresses) ? data.additional_addresses : [];
+
+  const validSocialLinks = (data.social_links || []).filter(
+    (item) => item.is_enabled && isValidUrl(item.url)
+  );
 
   const volunteerMailto = `mailto:${emailAddress}?subject=Volunteer%20Inquiry%20-%20Sharda%20Welfare%20Foundation&body=Dear%20Sharda%20Welfare%20Team%2C%0A%0AI%20am%20interested%20in%20joining%20as%20a%20volunteer.%0A%0AName%3A%20%0APhone%20Number%3A%20%0AProfession%20%2F%20Background%3A%20%0AArea%20of%20Interest%20(Healthcare%2C%20Education%2C%20Field%20Coordination%2C%20etc.)%3A%20%0AAvailability%3A%20%0A%0AThank%20you!`;
 
@@ -98,8 +128,25 @@ const Contact = () => {
                 </a>
                 <p className="text-xs text-slate-500 mt-2 flex items-center gap-1.5 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  Mon – Sat, 9:00 AM – 6:00 PM IST
+                  {officeHours}
                 </p>
+
+                {/* Additional Phone Numbers if configured */}
+                {additionalPhones.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-slate-200/70 space-y-1.5">
+                    {additionalPhones.map((item, idx) => (
+                      <div key={item.id || idx} className="flex justify-between items-center text-xs">
+                        <span className="text-slate-500 font-medium">{item.label || "Alternate"}:</span>
+                        <a
+                          href={`tel:${cleanTel(item.tel, item.phone)}`}
+                          className="font-bold text-foundation-primary hover:text-foundation-secondary transition-colors"
+                        >
+                          {item.phone}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -111,7 +158,7 @@ const Contact = () => {
                 Call Now
               </a>
               <a
-                href={`https://wa.me/918800998844?text=Hello%20Sharda%20Welfare%20Foundation%2C%20I%20would%20like%20to%20connect.`}
+                href={whatsappUrl}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="py-3 px-4 rounded-xl bg-emerald-50 hover:bg-emerald-100 text-emerald-700 font-bold text-sm border border-emerald-200 transition-all duration-200 flex items-center gap-1.5"
@@ -145,8 +192,26 @@ const Contact = () => {
                 </a>
                 <p className="text-xs text-slate-500 mt-2 flex items-center gap-1.5 font-medium">
                   <span className="w-1.5 h-1.5 rounded-full bg-blue-500"></span>
-                  Replies typically within 24–48 hours
+                  {emailResponseTime}
                 </p>
+
+                {/* Additional Emails if configured */}
+                {additionalEmails.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-slate-200/70 space-y-1.5">
+                    {additionalEmails.map((item, idx) => (
+                      <div key={item.id || idx} className="flex justify-between items-center text-xs">
+                        <span className="text-slate-500 font-medium">{item.label || "Alternate"}:</span>
+                        <a
+                          href={`mailto:${item.email}`}
+                          className="font-bold text-foundation-primary hover:text-foundation-secondary transition-colors truncate max-w-[170px]"
+                          title={item.email}
+                        >
+                          {item.email}
+                        </a>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -174,11 +239,23 @@ const Contact = () => {
               
               <div className="bg-slate-50 rounded-2xl p-4 border border-slate-100 mb-6">
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-1">Campus Address</p>
-                <p className="text-sm font-semibold text-slate-800 leading-snug">
-                  Sharda Welfare Foundation<br />
-                  Plot No. 32, 34, Knowledge Park III,<br />
-                  Greater Noida, Uttar Pradesh 201310
-                </p>
+                <div className="text-sm font-semibold text-slate-800 leading-snug">
+                  {addressLines.map((line, idx) => (
+                    <p key={idx}>{line}</p>
+                  ))}
+                </div>
+
+                {/* Additional Addresses if configured */}
+                {additionalAddresses.length > 0 && (
+                  <div className="mt-3 pt-3 border-t border-slate-200/70 space-y-2">
+                    {additionalAddresses.map((item, idx) => (
+                      <div key={item.id || idx} className="text-xs">
+                        <span className="text-slate-500 font-medium block">{item.label || "Additional Branch"}:</span>
+                        <p className="font-semibold text-slate-700 whitespace-pre-line">{item.address}</p>
+                      </div>
+                    ))}
+                  </div>
+                )}
               </div>
             </div>
 
@@ -240,7 +317,7 @@ const Contact = () => {
           <div className="mt-6 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-4 pt-6 border-t border-slate-100 text-xs sm:text-sm text-slate-500">
             <div className="flex items-center gap-2">
               <span className="w-2.5 h-2.5 rounded-full bg-foundation-secondary"></span>
-              <span className="font-semibold text-slate-700">Sharda University Campus, Greater Noida, UP</span>
+              <span className="font-semibold text-slate-700">{data.campus_address || initialContactData.campus_address}</span>
             </div>
             <div>
               <span>Need navigation help? Call our front desk at </span>
@@ -248,6 +325,37 @@ const Contact = () => {
             </div>
           </div>
         </div>
+
+        {/* Social Media Channels (rendered only when valid enabled links exist) */}
+        {validSocialLinks.length > 0 && (
+          <div className="bg-white rounded-3xl p-8 sm:p-10 border border-slate-200/80 mb-16 text-center">
+            <h3 className="text-xl sm:text-2xl font-bold text-slate-900 mb-2">Connect Across Our Social Channels</h3>
+            <p className="text-slate-500 text-sm mb-6 max-w-xl mx-auto">
+              Follow Sharda Welfare Foundation on our official channels to stay updated on our health camps, education drives, and community stories.
+            </p>
+            <div className="flex flex-wrap justify-center items-center gap-3">
+              {validSocialLinks.map((item) => {
+                const iconDef = socialPlatformIcons[item.platform?.toLowerCase()];
+                return (
+                  <a
+                    key={item.id || item.platform}
+                    href={item.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2.5 px-5 py-2.5 rounded-xl bg-slate-50 hover:bg-foundation-primary hover:text-white border border-slate-200/80 text-slate-700 font-semibold text-sm transition-all duration-200 shadow-sm hover:shadow"
+                  >
+                    {iconDef && (
+                      <svg className="w-4 h-4 fill-current shrink-0" viewBox={iconDef.viewBox}>
+                        <path d={iconDef.path} />
+                      </svg>
+                    )}
+                    <span>{item.label || iconDef?.name || item.platform}</span>
+                  </a>
+                );
+              })}
+            </div>
+          </div>
+        )}
 
         {/* 3 Simple Steps to Volunteer & Connect */}
         <div className="bg-gradient-to-b from-slate-100/80 to-white rounded-3xl p-8 sm:p-10 border border-slate-200/80">

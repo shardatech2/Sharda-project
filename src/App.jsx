@@ -1,4 +1,6 @@
 import './App.css'
+import AdminDashboard from "./admin/AdminDashboard";
+import AdminLogin from './admin/AdminLogin';
 import { useLocation, Navigate } from 'react-router-dom'
 import About from './pages/About'
 import OurStory from './pages/OurStory'
@@ -22,6 +24,20 @@ import SEO from './components/SEO';
 
 function App() {
   const location = useLocation();
+
+if (location.pathname === "/admin") {
+  return <AdminLogin />;
+}
+
+if (location.pathname === "/admin/dashboard") {
+  const token = sessionStorage.getItem("adminToken");
+
+  if (!token) {
+    return <Navigate to="/admin" replace />;
+  }
+
+  return <AdminDashboard />;
+}
 
   const getPageConfig = () => {
     switch (location.pathname) {

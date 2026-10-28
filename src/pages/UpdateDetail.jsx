@@ -1,28 +1,100 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { useLocation, Link, Navigate } from "react-router-dom";
 import { updatesData } from "../data/updatesData";
 import SEO from "../components/SEO";
 
+function parseParagraphs(content) {
+  if (Array.isArray(content)) return content;
+  if (typeof content === "string") {
+    try {
+      const parsed = JSON.parse(content);
+      if (Array.isArray(parsed)) return parsed;
+    } catch {}
+    return content.split(/\r?\n\r?\n/).map((p) => p.trim()).filter(Boolean);
+  }
+  return [];
+}
+
 function UpdateDetail() {
   const location = useLocation();
-  const id = location.pathname.replace("/latest-updates/", "");
-  const update = updatesData.find((item) => item.id === id);
+  const slug = location.pathname.replace("/latest-updates/", "").replace(/\/$/, "");
 
-  if (!update) {
-    return <Navigate to="/latest-updates" />;
+  const fallbackArticle = updatesData.find((item) => item.id === slug);
+  const [article, setArticle] = useState(null);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    let isMounted = true;
+
+    async function loadArticle() {
+      try {
+        const res = await fetch(`http://localhost:5000/api/public/updates/${slug}`);
+        if (res.ok) {
+          const data = await res.json();
+          if (isMounted) {
+            setArticle({
+              title: data.title,
+              shortDesc: data.short_desc,
+              image: data.image_url,
+              content: parseParagraphs(data.content),
+              dateLabel: data.date_label,
+            });
+          }
+        } else {
+          // Unsuccessful HTTP response (e.g. 404 draft/deleted):
+          // Keep article null so draft content is never exposed to visitors
+          if (isMounted) {
+            setArticle(null);
+          }
+        }
+      } catch (err) {
+        // Server unavailable due to network error: allow static fallback if available
+        if (isMounted && fallbackArticle) {
+          setArticle({
+            title: fallbackArticle.title,
+            shortDesc: fallbackArticle.shortDesc,
+            image: fallbackArticle.image,
+            content: parseParagraphs(fallbackArticle.content),
+            dateLabel: fallbackArticle.dateLabel || null,
+          });
+        }
+      } finally {
+        if (isMounted) setLoading(false);
+      }
+    }
+
+    loadArticle();
+
+    return () => {
+      isMounted = false;
+    };
+  }, [slug]);
+
+  if (loading) {
+    return (
+      <div className="w-full bg-white flex items-center justify-center min-h-[50vh]">
+        <p className="text-slate-500 font-medium">Loading article...</p>
+      </div>
+    );
   }
+
+  if (!article) {
+    return <Navigate to="/latest-updates" replace />;
+  }
+
+  const paragraphs = parseParagraphs(article.content);
 
   return (
     <div className="w-full bg-white flex flex-col min-h-screen">
       <SEO
-        title={update.title}
-        description={update.shortDesc}
-        ogImage={update.image}
+        title={article.title}
+        description={article.shortDesc}
+        ogImage={article.image}
         ogType="article"
         breadcrumb={[
           { label: "Home", link: "/" },
           { label: "Latest Updates", link: "/latest-updates" },
-          { label: update.title }
+          { label: article.title }
         ]}
       />
 
@@ -32,10 +104,10 @@ function UpdateDetail() {
       <section className="py-20 md:py-32 bg-slate-50 relative overflow-hidden">
         <div className="max-w-4xl mx-auto px-6 lg:px-8 text-center relative z-10">
           <p className="text-sm font-extrabold text-foundation-secondary tracking-[0.2em] uppercase mb-4">
-            SHARDA WELFARE • LATEST UPDATES
+            {article.dateLabel ? `SHARDA WELFARE • ${article.dateLabel}` : "SHARDA WELFARE • LATEST UPDATES"}
           </p>
           <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-10 leading-tight">
-            {update.title}
+            {article.title}
           </h1>
         </div>
         
@@ -50,7 +122,7 @@ function UpdateDetail() {
       <section className="py-12 bg-white">
         <div className="max-w-5xl mx-auto px-6 lg:px-8">
            <div className="w-full aspect-video md:aspect-[21/9] rounded-[2rem] overflow-hidden shadow-2xl relative">
-              <img src={update.image} alt={update.title} className="w-full h-full object-cover" />
+              <img src={article.image} alt={article.title} className="w-full h-full object-cover" />
            </div>
         </div>
       </section>
@@ -61,7 +133,7 @@ function UpdateDetail() {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-4xl mx-auto px-6 lg:px-8">
           <div className="prose prose-lg prose-slate max-w-none space-y-6 text-slate-700 font-medium leading-relaxed">
-            {update.content.map((paragraph, index) => (
+            {paragraphs.map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
           </div>
